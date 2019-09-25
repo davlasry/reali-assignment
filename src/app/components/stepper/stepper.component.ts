@@ -17,10 +17,6 @@ export class StepperComponent implements AfterContentInit {
 
   // contentChildren are set
   ngAfterContentInit() {
-    console.log('this.tabs', this.tabs);
-    this.tabs.forEach(tab => {
-      console.log('tab', tab);
-    });
     // get all active tabs
     const activeTabs = this.tabs.filter(tab => tab.active);
 
@@ -30,11 +26,19 @@ export class StepperComponent implements AfterContentInit {
     }
   }
 
-  selectTab(tab) {
+  selectTab(selectedTab) {
     // deactivate all tabs
     this.tabs.toArray().forEach(tab => (tab.active = false));
 
     // activate the tab the user has clicked on.
-    tab.active = true;
+    selectedTab.active = true;
+  }
+
+  onSubmit() {
+    console.log('Submit');
+  }
+
+  onClear() {
+    console.log('Submit');
   }
 }

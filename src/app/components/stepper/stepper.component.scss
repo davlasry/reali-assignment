@@ -1,5 +1,55 @@
 .tab-close {
-  color: gray;
+  color: #d6d6d6;
   text-align: right;
   cursor: pointer;
+}
+
+.stepper-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 2em;
+  border: 2px solid #f5ce18;
+  background-color: #fff0a9;
+
+  ul.nav-steps {
+    display: flex;
+    justify-content: space-between;
+
+    li.nav-step {
+      padding: 10px 20px;
+      border-radius: 4px;
+      background-color: #d6d6d6;
+      border: 1px solid black;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: white;
+      }
+
+      &.active {
+        background-color: white;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      border: none;
+      background-color: #cecece;
+      margin-left: 1em;
+      padding: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #eaeaea;
+      }
+    }
+  }
 }

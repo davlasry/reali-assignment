@@ -1,10 +1,18 @@
 <div class="app-container">
   <app-stepper>
     <app-step [tabTitle]="'Tab 1'">
-      Tab 1 content
+      <div class="step-label">1. Name</div>
+      <input type="text" placeholder="Enter your name..." />
     </app-step>
-    <app-step tabTitle="Tab 4">
-      Tab 2 content
+
+    <app-step [tabTitle]="'2'">
+      <div class="step-label">2. Email</div>
+      <input type="text" placeholder="Enter your email..." />
+    </app-step>
+
+    <app-step [tabTitle]="'3'">
+      <div class="step-label">3. Phone</div>
+      <input type="text" placeholder="Enter your email..." />
     </app-step>
   </app-stepper>
 </div>
