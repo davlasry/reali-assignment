@@ -3,9 +3,15 @@ import {
   OnInit,
   AfterContentInit,
   ContentChildren,
-  QueryList
+  QueryList,
+  Input
 } from '@angular/core';
 import { StepComponent } from '../step/step.component';
+import { Store, select } from '@ngrx/store';
+import { StepperState } from 'src/app/store/stepper/stepper.reducer';
+import { Observable } from 'rxjs';
+import { getActiveStep } from 'src/app/store/stepper/stepper.selectors';
+import { SetActiveStep } from 'src/app/store/stepper';
 
 @Component({
   selector: 'app-stepper',
@@ -13,25 +19,34 @@ import { StepComponent } from '../step/step.component';
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements AfterContentInit {
-  @ContentChildren(StepComponent) tabs: QueryList<StepComponent>;
+  @Input() steps;
+
+  activeStep$: Observable<number>;
+  // @ContentChildren(StepComponent) steps: QueryList<StepComponent>;
+
+  constructor(private store: Store<StepperState>) {
+    this.activeStep$ = this.store.pipe(select(getActiveStep));
+  }
 
   // contentChildren are set
   ngAfterContentInit() {
-    // get all active tabs
-    const activeTabs = this.tabs.filter(tab => tab.active);
-
-    // if there is no active tab set, activate the first
-    if (activeTabs.length === 0) {
-      this.selectTab(this.tabs.first);
-    }
+    //   // get all active tabs
+    //   const activeStep = this.steps.filter(tab => tab.active);
+    //   // if there is no active tab set, activate the first
+    //   if (activeStep.length === 0) {
+    //     // this.selectStep(this.steps.first);
+    //     this.selectStep(1);
+    //   }
   }
 
-  selectTab(selectedTab) {
+  selectStep(selectedStep) {
     // deactivate all tabs
-    this.tabs.toArray().forEach(tab => (tab.active = false));
+    // this.steps.toArray().forEach(tab => (tab.active = false));
 
     // activate the tab the user has clicked on.
-    selectedTab.active = true;
+    // selectedStep.active = true;
+
+    this.store.dispatch(SetActiveStep({ selectedStep }));
   }
 
   onSubmit() {
@@ -39,6 +54,6 @@ export class StepperComponent implements AfterContentInit {
   }
 
   onClear() {
-    console.log('Submit');
+    console.log('Clear');
   }
 }

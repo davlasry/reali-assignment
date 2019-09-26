@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import * as fromScoreboard from './store/reducers';
+import { stepperReducer } from './store/stepper/stepper.reducer';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { StepComponent } from './components/step/step.component';
 
@@ -13,7 +13,7 @@ import { StepComponent } from './components/step/step.component';
   declarations: [AppComponent, StepperComponent, StepComponent],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ game: fromScoreboard.reducer }),
+    StoreModule.forRoot({ stepper: stepperReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25 // Retains last 25 states
     })

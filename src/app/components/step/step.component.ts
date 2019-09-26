@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-step',
@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StepComponent {
   // tslint:disable-next-line: no-input-rename
-  @Input('tabTitle') title: string;
-  @Input() active = false;
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() index: number;
+  @Input() active: boolean;
 }

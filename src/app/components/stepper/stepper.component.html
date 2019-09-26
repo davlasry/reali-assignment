@@ -1,16 +1,24 @@
-<div class="stepper-container">
+<div class="stepper-container" *ngIf="activeStep$ | async as activeStep">
   <ul class="nav-steps">
     <li
-      *ngFor="let tab of tabs; let i = index"
-      (click)="selectTab(tab)"
+      *ngFor="let step of steps; let i = index"
+      (click)="selectStep(i + 1)"
       class="nav-step"
-      [class.active]="tab.active"
+      [class.active]="i + 1 === activeStep"
     >
-      <div>{{ i }}</div>
+      <div>{{ i + 1 }}</div>
     </li>
   </ul>
 
-  <ng-content></ng-content>
+  <app-step
+    *ngFor="let step of steps; let i = index"
+    [label]="step.label"
+    [placeholder]="step.placeholder"
+    [index]="i + 1"
+    [active]="i + 1 === activeStep"
+  ></app-step>
+
+  <!-- <ng-content></ng-content> -->
 
   <div class="buttons">
     <button (click)="onSubmit()">Submit</button>

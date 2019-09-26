@@ -4,6 +4,10 @@
   border: 1px solid black;
   margin: 2em 0;
 
+  &.hidden {
+    display: none;
+  }
+
   ::ng-deep .step-label {
     font-size: 1.5em;
     font-weight: bold;

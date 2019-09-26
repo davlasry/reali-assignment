@@ -1,3 +1,4 @@
-<div [hidden]="!active" class="step-container">
-  <ng-content></ng-content>
+<div class="step-container" [class.hidden]="!active">
+  <div class="step-label">{{ index }}. {{ label }}</div>
+  <input type="text" placeholder="{{ placeholder }}" autofocus />
 </div>

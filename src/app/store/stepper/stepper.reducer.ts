@@ -1,23 +1,20 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as featureActions from './actions';
+import * as stepperActions from './stepper.actions';
 // import { featureAdapter } from './state';
 
-export interface State {
-  currentStep: number;
-  appleCounter: number;
+export interface StepperState {
+  activeStep: number;
 }
 
-export const initialState: State = {
-  currentStep: 0,
-  appleCounter: 0
+export const initialState: StepperState = {
+  activeStep: 1
 };
 
 const featureReducer = createReducer(
   initialState,
-  on(featureActions.Load, state => ({
+  on(stepperActions.SetActiveStep, (state, { selectedStep }) => ({
     ...state,
-    isLoading: true,
-    error: null
+    activeStep: selectedStep
   }))
   //   on(featureActions.loadSuccess, (state, { user }) =>
   //     featureAdapter.addAll(user, {
@@ -52,6 +49,9 @@ const featureReducer = createReducer(
   //   )
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function stepperReducer(
+  state: StepperState | undefined,
+  action: Action
+) {
   return featureReducer(state, action);
 }
