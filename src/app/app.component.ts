@@ -8,11 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   steps: any[];
 
-  ngOnInit() {
-    this.steps = [
-      { label: 'Name', placeholder: 'Enter your name...' },
-      { label: 'Phone', placeholder: 'Enter your phone...' },
-      { label: 'Email', placeholder: 'Enter your email...' }
-    ];
-  }
+  ngOnInit() {}
 }

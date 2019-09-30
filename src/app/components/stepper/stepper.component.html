@@ -1,21 +1,29 @@
-<div class="stepper-container" *ngIf="activeStep$ | async as activeStep">
+<div
+  class="stepper-container"
+  *ngIf="{
+    activeStep: activeStep$ | async,
+    stepsData: stepsData$ | async
+  } as data"
+>
   <ul class="nav-steps">
     <li
-      *ngFor="let step of steps; let i = index"
+      *ngFor="let step of data?.stepsData; let i = index"
       (click)="selectStep(i + 1)"
       class="nav-step"
-      [class.active]="i + 1 === activeStep"
+      [class.active]="i + 1 === data?.activeStep"
     >
       <div>{{ i + 1 }}</div>
     </li>
   </ul>
 
+  value: {{ (data?.stepsData)[data?.activeStep - 1].value }}
+
   <app-step
-    *ngFor="let step of steps; let i = index"
-    [label]="step.label"
-    [placeholder]="step.placeholder"
-    [index]="i + 1"
-    [active]="i + 1 === activeStep"
+    [label]="
+      data?.activeStep + '. ' + (data?.stepsData)[data?.activeStep - 1].label
+    "
+    [placeholder]="(data?.stepsData)[data?.activeStep - 1].placeholder"
+    [value]="(data?.stepsData)[data?.activeStep - 1].value"
   ></app-step>
 
   <!-- <ng-content></ng-content> -->

@@ -10,5 +10,5 @@ export class StepComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() index: number;
-  @Input() active: boolean;
+  @Input() value: number;
 }

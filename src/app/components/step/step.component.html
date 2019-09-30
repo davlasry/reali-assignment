@@ -1,4 +1,13 @@
-<div class="step-container" [class.hidden]="!active">
-  <div class="step-label">{{ index }}. {{ label }}</div>
-  <input type="text" placeholder="{{ placeholder }}" autofocus />
+<div class="step-container">
+  <div class="step-label">{{ label }}</div>
+  <input
+    #someInput
+    type="text"
+    [placeholder]="placeholder"
+    autofocus
+    [ngModel]="value"
+  />
+  <div>
+    {{ value }}
+  </div>
 </div>

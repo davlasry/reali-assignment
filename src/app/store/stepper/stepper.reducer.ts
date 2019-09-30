@@ -2,12 +2,20 @@ import { Action, createReducer, on } from '@ngrx/store';
 import * as stepperActions from './stepper.actions';
 // import { featureAdapter } from './state';
 
+const initialStepsData = [
+  { label: 'Name', placeholder: 'Enter your name...', value: '1' },
+  { label: 'Phone', placeholder: 'Enter your phone...', value: '2' },
+  { label: 'Email', placeholder: 'Enter your email...', value: '3' }
+];
+
 export interface StepperState {
   activeStep: number;
+  stepsData: any;
 }
 
 export const initialState: StepperState = {
-  activeStep: 1
+  activeStep: 1,
+  stepsData: initialStepsData
 };
 
 const featureReducer = createReducer(
