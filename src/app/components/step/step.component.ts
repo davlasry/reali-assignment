@@ -4,10 +4,7 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-  ElementRef,
-  ViewChild,
-  Renderer2,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 
 @Component({

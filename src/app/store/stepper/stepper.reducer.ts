@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as stepperActions from './stepper.actions';
+import { IStepData } from 'src/app/shared/stepData';
 
 const initialStepsData = [
   { label: 'Name', placeholder: 'Enter your name...', value: '' },
@@ -9,14 +10,12 @@ const initialStepsData = [
 
 export interface StepperState {
   activeStepIndex: number;
-  activeStepData: any;
-  stepsData: any;
+  stepsData: IStepData[];
   isFormSubmitted: boolean;
 }
 
 export const initialState: StepperState = {
   activeStepIndex: 0,
-  activeStepData: initialStepsData[0],
   stepsData: initialStepsData,
   isFormSubmitted: false
 };

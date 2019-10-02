@@ -15,6 +15,7 @@ import {
   ClearStepsData,
   SubmitForm
 } from 'src/app/store/stepper';
+import { IStepData } from 'src/app/shared/stepData';
 
 @Component({
   selector: 'app-stepper',
@@ -23,8 +24,8 @@ import {
 })
 export class StepperComponent {
   activeStepIndex$: Observable<number>;
-  stepsData$: Observable<any>;
-  activeStepData$: Observable<any>;
+  stepsData$: Observable<IStepData[]>;
+  activeStepData$: Observable<IStepData>;
   isStepperValid$: Observable<boolean>;
   isFormSubmitted$: Observable<boolean>;
 
