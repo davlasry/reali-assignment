@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-export const SetActiveStep = createAction(
-  '[Stepper] Set Active Step',
-  props<{ selectedStep: number }>()
+export const SetActiveStepIndex = createAction(
+  '[Stepper] Set Active Step Index',
+  props<{ selectedStepIndex: number }>()
 );
 
 export const SetStepValue = createAction(

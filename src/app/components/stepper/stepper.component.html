@@ -1,35 +1,37 @@
 <div
   class="stepper-container"
   *ngIf="{
-    activeStep: activeStep$ | async,
+    activeStepIndex: activeStepIndex$ | async,
     stepsData: stepsData$ | async
   } as data"
 >
   <ul class="nav-steps">
-    <li
+    <button
       *ngFor="let step of data?.stepsData; let i = index"
       (click)="selectStep(i + 1)"
-      class="nav-step"
-      [class.active]="i + 1 === data?.activeStep"
+      class="step-button"
+      [class.active]="i + 1 === data?.activeStepIndex"
+      [disabled]="(data?.stepsData)[data.activeStepIndex].value === ''"
     >
       <div>{{ i + 1 }}</div>
-    </li>
+    </button>
   </ul>
-  <div>stepper-valid: {{ isStepperValid$ | async }}</div>
-  <!-- <div>current value: {{ (data?.stepsData)[data?.activeStep - 1].value }}</div> -->
 
   <app-step
     [label]="
-      data?.activeStep + '. ' + (data?.stepsData)[data?.activeStep - 1].label
+      data?.activeStepIndex +
+      1 +
+      '. ' +
+      (data?.stepsData)[(data?.activeStepIndex)].label
     "
-    [placeholder]="(data?.stepsData)[data?.activeStep - 1].placeholder"
-    [value]="(data?.stepsData)[data?.activeStep - 1].value"
+    [placeholder]="(data?.stepsData)[(data?.activeStepIndex)].placeholder"
+    [value]="(data?.stepsData)[(data?.activeStepIndex)].value"
     (inputValueChange)="onInputValueChanged($event)"
-    *ngIf="data?.activeStep !== 0"
+    *ngIf="data?.activeStepIndex !== -1"
   ></app-step>
 
   <app-result
-    *ngIf="data?.activeStep === 0"
+    *ngIf="data?.activeStepIndex === -1"
     [stepsData]="data?.stepsData"
   ></app-result>
 

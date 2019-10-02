@@ -9,28 +9,32 @@ const initialStepsData = [
 ];
 
 export interface StepperState {
-  activeStep: number;
+  activeStepIndex: number;
   stepsData: any;
 }
 
 export const initialState: StepperState = {
-  activeStep: 1,
+  activeStepIndex: 0,
   stepsData: initialStepsData
 };
 
 const featureReducer = createReducer(
   initialState,
-  on(stepperActions.SetActiveStep, (state, { selectedStep }) => ({
+  on(stepperActions.SetActiveStepIndex, (state, { selectedStepIndex }) => ({
     ...state,
-    activeStep: selectedStep
+    activeStep: selectedStepIndex
   })),
   on(stepperActions.SetStepValue, (state, { stepValue }) => ({
     ...state,
     stepsData: state.stepsData.map((step, index) => {
-      if (index === state.activeStep - 1) {
-        step.value = stepValue;
+      if (index === state.activeStepIndex) {
+        return {
+          ...step,
+          value: stepValue
+        };
       }
-      return step;
+
+      return { ...step };
     })
   })),
   on(stepperActions.ClearStepsData, state => ({

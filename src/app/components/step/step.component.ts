@@ -22,27 +22,30 @@ export class StepComponent implements OnChanges, AfterViewInit {
 
   @Output() inputValueChange = new EventEmitter();
 
-  @ViewChild('someInput', { static: false }) someInput: ElementRef;
+  // @ViewChild('someInput', { static: false }) someInput: ElementRef;
 
   constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
-    this.someInput.nativeElement.focus();
+    // this.someInput.nativeElement.focus();
   }
 
   ngOnChanges(changes) {
     console.log(changes.value);
     console.log('value', this.value);
-    if (this.someInput) {
-      // this.someInput.nativeElement.value = this.value;
-      this.renderer.setProperty(
-        this.someInput.nativeElement,
-        'value',
-        this.value
-      );
-      this.someInput.nativeElement.focus();
-    }
+    // if (this.someInput) {
+    //   // this.someInput.nativeElement.value = this.value;
+    //   this.renderer.setProperty(
+    //     this.someInput.nativeElement,
+    //     'value',
+    //     this.value
+    //   );
+    //   this.someInput.nativeElement.focus();
+    // }
   }
 
-  onInputChange() {}
+  onInputChange(event) {
+    console.log('event:', event);
+    this.inputValueChange.emit(event);
+  }
 }
