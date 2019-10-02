@@ -20,7 +20,7 @@
   </ul>
 
   <app-step
-    [label]="data.activeStepIndex + 1 + '. ' + data.activeStepData.label"
+    [label]="data.activeStepData.label | stepLabel: data.activeStepIndex"
     [placeholder]="data.activeStepData.placeholder"
     [value]="data.activeStepData.value"
     (inputValueChange)="onInputValueChanged($event)"

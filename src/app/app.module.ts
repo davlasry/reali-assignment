@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { StepComponent } from './components/step/step.component';
 import { ResultComponent } from './components/result/result.component';
+import { StepLabelPipe } from './shared/stepLabel.pipe';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -16,7 +17,8 @@ import { stepperReducer } from './store/stepper/stepper.reducer';
     AppComponent,
     StepperComponent,
     StepComponent,
-    ResultComponent
+    ResultComponent,
+    StepLabelPipe
   ],
   imports: [
     BrowserModule,
