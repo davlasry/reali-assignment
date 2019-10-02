@@ -27,10 +27,18 @@
 
       &:hover {
         background-color: white;
+
+        &[disabled] {
+          background-color: #d6d6d6;
+        }
       }
 
       &.active {
         background-color: white;
+
+        &[disabled] {
+          color: black;
+        }
       }
     }
   }
@@ -41,14 +49,19 @@
 
     button {
       border: none;
-      background-color: #cecece;
+      background-color: #d6d6d6;
       margin-left: 1em;
       padding: 1em;
       border-radius: 4px;
       cursor: pointer;
+      border: 1px solid black;
 
       &:hover {
         background-color: #eaeaea;
+
+        &[disabled] {
+          background-color: #d6d6d6;
+        }
       }
     }
   }

@@ -10,4 +10,6 @@ export const SetStepValue = createAction(
   props<{ stepValue: string }>()
 );
 
+export const SubmitForm = createAction('[Stepper] Submit Form');
+
 export const ClearStepsData = createAction('[Stepper] Clear Steps Data');

@@ -2,43 +2,41 @@
   class="stepper-container"
   *ngIf="{
     activeStepIndex: activeStepIndex$ | async,
-    stepsData: stepsData$ | async
+    stepsData: stepsData$ | async,
+    activeStepData: activeStepData$ | async,
+    isFormSubmitted: isFormSubmitted$ | async
   } as data"
 >
   <ul class="nav-steps">
     <button
       *ngFor="let step of data?.stepsData; let i = index"
-      (click)="selectStep(i + 1)"
+      (click)="selectStep(i)"
       class="step-button"
-      [class.active]="i + 1 === data?.activeStepIndex"
-      [disabled]="(data?.stepsData)[data.activeStepIndex].value === ''"
+      [class.active]="i === data.activeStepIndex && !data.isFormSubmitted"
+      [disabled]="data.isFormSubmitted || data.activeStepData.value === ''"
     >
       <div>{{ i + 1 }}</div>
     </button>
   </ul>
 
   <app-step
-    [label]="
-      data?.activeStepIndex +
-      1 +
-      '. ' +
-      (data?.stepsData)[(data?.activeStepIndex)].label
-    "
-    [placeholder]="(data?.stepsData)[(data?.activeStepIndex)].placeholder"
-    [value]="(data?.stepsData)[(data?.activeStepIndex)].value"
+    [label]="data.activeStepIndex + 1 + '. ' + data.activeStepData.label"
+    [placeholder]="data.activeStepData.placeholder"
+    [value]="data.activeStepData.value"
     (inputValueChange)="onInputValueChanged($event)"
-    *ngIf="data?.activeStepIndex !== -1"
+    *ngIf="!data.isFormSubmitted"
   ></app-step>
 
   <app-result
-    *ngIf="data?.activeStepIndex === -1"
-    [stepsData]="data?.stepsData"
+    *ngIf="data.isFormSubmitted"
+    [stepsData]="data.stepsData"
   ></app-result>
 
-  <!-- <ng-content></ng-content> -->
-
   <div class="buttons">
-    <button (click)="onSubmit()" [disabled]="!(isStepperValid$ | async)">
+    <button
+      (click)="onSubmit()"
+      [disabled]="!(isStepperValid$ | async) || data.isFormSubmitted"
+    >
       Submit
     </button>
     <button (click)="onClear()">Clear</button>

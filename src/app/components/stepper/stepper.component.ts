@@ -5,12 +5,15 @@ import { Observable } from 'rxjs';
 import {
   getActiveStepIndex,
   getStepsData,
-  isStepperValid
+  getActiveStepData,
+  getIsFormSubmitted,
+  getIsStepperValid
 } from 'src/app/store/stepper/stepper.selectors';
 import {
   SetActiveStepIndex,
   SetStepValue,
-  ClearStepsData
+  ClearStepsData,
+  SubmitForm
 } from 'src/app/store/stepper';
 
 @Component({
@@ -21,12 +24,16 @@ import {
 export class StepperComponent {
   activeStepIndex$: Observable<number>;
   stepsData$: Observable<any>;
+  activeStepData$: Observable<any>;
   isStepperValid$: Observable<boolean>;
+  isFormSubmitted$: Observable<boolean>;
 
   constructor(private store: Store<StepperState>) {
     this.activeStepIndex$ = this.store.pipe(select(getActiveStepIndex));
     this.stepsData$ = this.store.pipe(select(getStepsData));
-    this.isStepperValid$ = this.store.pipe(select(isStepperValid));
+    this.activeStepData$ = this.store.pipe(select(getActiveStepData));
+    this.isStepperValid$ = this.store.pipe(select(getIsStepperValid));
+    this.isFormSubmitted$ = this.store.pipe(select(getIsFormSubmitted));
   }
 
   onInputValueChanged(event) {
@@ -38,11 +45,10 @@ export class StepperComponent {
   }
 
   onSubmit() {
-    this.store.dispatch(SetActiveStepIndex({ selectedStepIndex: -1 }));
+    this.store.dispatch(SubmitForm());
   }
 
   onClear() {
     this.store.dispatch(ClearStepsData());
-    this.store.dispatch(SetActiveStepIndex({ selectedStepIndex: 1 }));
   }
 }

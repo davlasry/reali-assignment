@@ -13,7 +13,18 @@ export const getStepsData = createSelector(
   stepper => stepper.stepsData
 );
 
-export const isStepperValid = createSelector(
+export const getActiveStepData = createSelector(
+  getStepsData,
+  getActiveStepIndex,
+  (stepsData, activeStepIndex) => stepsData[activeStepIndex]
+);
+
+export const getIsStepperValid = createSelector(
   getStepsData,
   stepsData => stepsData.every(step => step.value !== '')
+);
+
+export const getIsFormSubmitted = createSelector(
+  getStepperState,
+  stepperState => stepperState.isFormSubmitted
 );

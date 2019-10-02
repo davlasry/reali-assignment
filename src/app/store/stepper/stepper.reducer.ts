@@ -1,6 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as stepperActions from './stepper.actions';
-// import { featureAdapter } from './state';
 
 const initialStepsData = [
   { label: 'Name', placeholder: 'Enter your name...', value: '' },
@@ -10,19 +9,23 @@ const initialStepsData = [
 
 export interface StepperState {
   activeStepIndex: number;
+  activeStepData: any;
   stepsData: any;
+  isFormSubmitted: boolean;
 }
 
 export const initialState: StepperState = {
   activeStepIndex: 0,
-  stepsData: initialStepsData
+  activeStepData: initialStepsData[0],
+  stepsData: initialStepsData,
+  isFormSubmitted: false
 };
 
 const featureReducer = createReducer(
   initialState,
   on(stepperActions.SetActiveStepIndex, (state, { selectedStepIndex }) => ({
     ...state,
-    activeStep: selectedStepIndex
+    activeStepIndex: selectedStepIndex
   })),
   on(stepperActions.SetStepValue, (state, { stepValue }) => ({
     ...state,
@@ -39,10 +42,16 @@ const featureReducer = createReducer(
   })),
   on(stepperActions.ClearStepsData, state => ({
     ...state,
+    activeStepIndex: 0,
+    isFormSubmitted: false,
     stepsData: state.stepsData.map(step => {
       step.value = '';
       return step;
     })
+  })),
+  on(stepperActions.SubmitForm, state => ({
+    ...state,
+    isFormSubmitted: true
   }))
 );
 

@@ -15,37 +15,24 @@ import {
   templateUrl: './step.component.html',
   styleUrls: ['./step.component.scss']
 })
-export class StepComponent implements OnChanges, AfterViewInit {
+export class StepComponent implements OnChanges {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() value: string;
 
   @Output() inputValueChange = new EventEmitter();
 
-  // @ViewChild('someInput', { static: false }) someInput: ElementRef;
+  @ViewChild('textInput', { static: false }) textInput;
 
-  constructor(private renderer: Renderer2) {}
-
-  ngAfterViewInit() {
-    // this.someInput.nativeElement.focus();
-  }
+  constructor() {}
 
   ngOnChanges(changes) {
-    console.log(changes.value);
-    console.log('value', this.value);
-    // if (this.someInput) {
-    //   // this.someInput.nativeElement.value = this.value;
-    //   this.renderer.setProperty(
-    //     this.someInput.nativeElement,
-    //     'value',
-    //     this.value
-    //   );
-    //   this.someInput.nativeElement.focus();
-    // }
+    if (this.textInput) {
+      this.textInput.nativeElement.focus();
+    }
   }
 
   onInputChange(event) {
-    console.log('event:', event);
     this.inputValueChange.emit(event);
   }
 }

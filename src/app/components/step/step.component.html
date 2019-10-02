@@ -1,10 +1,12 @@
 <div class="step-container">
-  <div class="step-label">{{ label }}</div>
+  <div class="step-label">{{ label }} *</div>
   <input
+    #textInput
     type="text"
-    [placeholder]="placeholder"
     autofocus
+    [placeholder]="placeholder"
     [value]="value"
     (keyup)="onInputChange($event.target.value)"
   />
+  <div>(*) Indicates required fields</div>
 </div>
