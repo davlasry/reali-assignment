@@ -3,9 +3,9 @@ import * as stepperActions from './stepper.actions';
 // import { featureAdapter } from './state';
 
 const initialStepsData = [
-  { label: 'Name', placeholder: 'Enter your name...', value: '1' },
-  { label: 'Phone', placeholder: 'Enter your phone...', value: '2' },
-  { label: 'Email', placeholder: 'Enter your email...', value: '3' }
+  { label: 'Name', placeholder: 'Enter your name...', value: '' },
+  { label: 'Phone', placeholder: 'Enter your phone...', value: '' },
+  { label: 'Email', placeholder: 'Enter your email...', value: '' }
 ];
 
 export interface StepperState {
@@ -23,38 +23,23 @@ const featureReducer = createReducer(
   on(stepperActions.SetActiveStep, (state, { selectedStep }) => ({
     ...state,
     activeStep: selectedStep
+  })),
+  on(stepperActions.SetStepValue, (state, { stepValue }) => ({
+    ...state,
+    stepsData: state.stepsData.map((step, index) => {
+      if (index === state.activeStep - 1) {
+        step.value = stepValue;
+      }
+      return step;
+    })
+  })),
+  on(stepperActions.ClearStepsData, state => ({
+    ...state,
+    stepsData: state.stepsData.map(step => {
+      step.value = '';
+      return step;
+    })
   }))
-  //   on(featureActions.loadSuccess, (state, { user }) =>
-  //     featureAdapter.addAll(user, {
-  //       ...state,
-  //       isLoading: false,
-  //       error: null
-  //     })
-  //   ),
-  //   on(featureActions.loadFailure, (state, { error }) => ({
-  //     ...state,
-  //     isLoading: false,
-  //     error
-  //   })),
-  //   on(featureActions.select, (state, { id }) => ({
-  //     ...state,
-  //     selectedUserId: id
-  //   })),
-  //   on(featureActions.getByUserId, (state, { data }) => ({
-  //     ...state,
-  //     getByIdUser: data
-  //   })),
-  //   on(featureActions.deleteAll, state =>
-  //     featureAdapter.removeAll({
-  //       ...state,
-  //       selectedUserId: null,
-  //       getByIdUser: null
-  //     })
-  //   ),
-  //   on(featureActions.getById, (state, { Id }) => featureAdapter.map(Id, state)),
-  //   on(featureActions.deleteId, (state, { Id }) =>
-  //     featureAdapter.removeOne(Id, state)
-  //   )
 );
 
 export function stepperReducer(

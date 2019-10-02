@@ -15,8 +15,8 @@
       <div>{{ i + 1 }}</div>
     </li>
   </ul>
-
-  value: {{ (data?.stepsData)[data?.activeStep - 1].value }}
+  <div>stepper-valid: {{ isStepperValid$ | async }}</div>
+  <!-- <div>current value: {{ (data?.stepsData)[data?.activeStep - 1].value }}</div> -->
 
   <app-step
     [label]="
@@ -24,12 +24,21 @@
     "
     [placeholder]="(data?.stepsData)[data?.activeStep - 1].placeholder"
     [value]="(data?.stepsData)[data?.activeStep - 1].value"
+    (inputValueChange)="onInputValueChanged($event)"
+    *ngIf="data?.activeStep !== 0"
   ></app-step>
+
+  <app-result
+    *ngIf="data?.activeStep === 0"
+    [stepsData]="data?.stepsData"
+  ></app-result>
 
   <!-- <ng-content></ng-content> -->
 
   <div class="buttons">
-    <button (click)="onSubmit()">Submit</button>
+    <button (click)="onSubmit()" [disabled]="!(isStepperValid$ | async)">
+      Submit
+    </button>
     <button (click)="onClear()">Clear</button>
   </div>
 </div>

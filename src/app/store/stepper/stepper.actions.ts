@@ -1,18 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 
-export const Load = createAction(
-  '[Player] Set playList',
-  props<{ list: any[] }>()
-);
 export const SetActiveStep = createAction(
   '[Stepper] Set Active Step',
   props<{ selectedStep: number }>()
 );
-// export const SetSongList = createAction(
-//   '[Player] Set SongList',
-//   props<{ list: any[] }>()
-// );
-// export const SetCurrentIndex = createAction(
-//   '[Player] Set CurrentIndex',
-//   props<{ index: number }>()
-// );
+
+export const SetStepValue = createAction(
+  '[Stepper] Set Step Value',
+  props<{ stepValue: string }>()
+);
+
+export const ClearStepsData = createAction('[Stepper] Clear Steps Data');

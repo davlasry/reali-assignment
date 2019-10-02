@@ -1,13 +1,15 @@
 <div class="step-container">
+  value: {{ value }}
   <div class="step-label">{{ label }}</div>
   <input
     #someInput
     type="text"
     [placeholder]="placeholder"
     autofocus
-    [ngModel]="value"
+    [(value)]="value"
+    (ngModelChange)="onInputChange()"
   />
-  <div>
+  <!-- <div>
     {{ value }}
-  </div>
+  </div> -->
 </div>

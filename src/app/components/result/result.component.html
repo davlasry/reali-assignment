@@ -1,0 +1,10 @@
+<div class="result-container">
+  <div>Submitted:</div>
+
+  <div>
+    <div *ngFor="let step of stepsData">
+      <span>{{ step.label }}</span> -
+      <span>{{ step.value }}</span>
+    </div>
+  </div>
+</div>

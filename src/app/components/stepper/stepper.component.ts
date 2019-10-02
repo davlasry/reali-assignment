@@ -15,9 +15,14 @@ import { StepperState } from 'src/app/store/stepper/stepper.reducer';
 import { Observable } from 'rxjs';
 import {
   getActiveStep,
-  getStepsData
+  getStepsData,
+  isStepperValid
 } from 'src/app/store/stepper/stepper.selectors';
-import { SetActiveStep } from 'src/app/store/stepper';
+import {
+  SetActiveStep,
+  SetStepValue,
+  ClearStepsData
+} from 'src/app/store/stepper';
 
 @Component({
   selector: 'app-stepper',
@@ -27,32 +32,45 @@ import { SetActiveStep } from 'src/app/store/stepper';
 export class StepperComponent implements AfterViewInit {
   activeStep$: Observable<number>;
   stepsData$: Observable<any>;
+  isStepperValid$: Observable<boolean>;
 
-  @ViewChild(StepComponent, { static: false }) someInput: StepComponent;
-
-  // @ContentChildren(StepComponent) steps: QueryList<StepComponent>;
+  @ViewChild(StepComponent, { static: false }) stepComponent: StepComponent;
 
   ngAfterViewInit() {
-    console.log(this.someInput);
+    // console.log(this.someInput);
   }
 
   constructor(private store: Store<StepperState>) {
     this.activeStep$ = this.store.pipe(select(getActiveStep));
     this.stepsData$ = this.store.pipe(select(getStepsData));
+    this.isStepperValid$ = this.store.pipe(select(isStepperValid));
+  }
+
+  onInputValueChanged(event) {
+    console.log('event:', event);
   }
 
   selectStep(selectedStep) {
-    console.log(this.someInput.value);
-    if (this.someInput.value) {
+    // TODO: if the selectedStep is the same as the activeStep, do nothing
+    // if (selectedStep === this.activeStep) {
+    //   return;
+    // }
+    const stepValue = this.stepComponent.someInput.nativeElement.value;
+    console.log('stepValue:', stepValue);
+    if (stepValue) {
+      this.store.dispatch(SetStepValue({ stepValue }));
       this.store.dispatch(SetActiveStep({ selectedStep }));
     }
   }
 
   onSubmit() {
     console.log('Submit');
+    this.store.dispatch(SetActiveStep({ selectedStep: 0 }));
   }
 
   onClear() {
     console.log('Clear');
+    this.store.dispatch(ClearStepsData());
+    this.store.dispatch(SetActiveStep({ selectedStep: 1 }));
   }
 }

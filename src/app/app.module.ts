@@ -9,9 +9,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { stepperReducer } from './store/stepper/stepper.reducer';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { StepComponent } from './components/step/step.component';
+import { ResultComponent } from './components/result/result.component';
 
 @NgModule({
-  declarations: [AppComponent, StepperComponent, StepComponent],
+  declarations: [AppComponent, StepperComponent, StepComponent, ResultComponent],
   imports: [
     BrowserModule,
     FormsModule,

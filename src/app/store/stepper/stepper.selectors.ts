@@ -12,3 +12,8 @@ export const getStepsData = createSelector(
   getStepperState,
   stepper => stepper.stepsData
 );
+
+export const isStepperValid = createSelector(
+  getStepsData,
+  stepsData => stepsData.every(step => !!step.value.length)
+);
